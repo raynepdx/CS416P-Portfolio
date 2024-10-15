@@ -26,5 +26,24 @@ wav.write('sine_wave.wav', sample_rate, sine_wave_int)
 
 
 #I'm using this print statement as a means to test the code execution
-print(f"Sine wave written to file.\n")
+print(f"First sine wave written to file.\n")
 print(f"Sample rate: {sample_rate}\nDuration: {duration}\nFrequency: {frequency}\nAmplitude: {amplitude}\n")
+
+#Part 2 of the assignment, where I generate a clipped sine wave
+
+amplitude_clipped = 16384 #1/2 the value of the max 16-bit signed
+
+sine_wave_clipped = sine_wave * amplitude_clipped #bringing the sine wave to the correct amplitude
+
+sine_wave_clipped = np.clip(sine_wave_clipped, -8192, 8192) #clipping the sine wave to the specified amplitude (-8192 to 8192)
+
+sine_wave_clipped_int = np.int16(sine_wave_clipped) #converting the clipped sine wave to 16-bit signed integers
+
+wav.write('clipped.wav', sample_rate, sine_wave_clipped_int) #writing the clipped sine wave to a .wav file
+
+if amplitude_clipped > amplitude:
+    amplitude_clipped = amplitude
+
+#testing the code execution
+print(f"Clipped sine wave written to file.\n")
+print(f"Sample rate: {sample_rate}\nDuration: {duration}\nFrequency: {frequency}\nAmplitude: {amplitude_clipped}\n")
