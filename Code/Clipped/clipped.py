@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.io.wavfile as wav
+import simpleaudio as audio
 
 #specifications from the assignment prompt
 sample_rate = 48000 #samples per second
@@ -47,3 +48,13 @@ if amplitude_clipped > amplitude:
 #testing the code execution
 print(f"Clipped sine wave written to file.\n")
 print(f"Sample rate: {sample_rate}\nDuration: {duration}\nFrequency: {frequency}\nAmplitude: {amplitude_clipped}\n")
+
+
+#Part 3 of the assignment, where I play both the original and clipped sine waves
+
+clipped_obj = audio.WaveObject.from_wave_file('clipped.wav') #creating a wave object from the clipped sine wave file
+
+play_obj = clipped_obj.play() #playing the clipped sine wave
+play_obj.wait_done() #waiting for the clipped sine wave to finish playing
+
+#I figured out how to do this by following the steps laid out for me in this link: https://simpleaudio.readthedocs.io/en/latest/index.html
