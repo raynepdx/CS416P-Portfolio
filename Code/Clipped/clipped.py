@@ -57,4 +57,4 @@ clipped_obj = audio.WaveObject.from_wave_file('clipped.wav') #creating a wave ob
 play_obj = clipped_obj.play() #playing the clipped sine wave
 play_obj.wait_done() #waiting for the clipped sine wave to finish playing
 
-#I figured out how to do this by following the steps laid out for me in this link: https://simpleaudio.readthedocs.io/en/latest/index.html
+#I figured out how to do this by following the steps laid out for me in this link: https://simpleaudio.readthedocs.io/en/latest/index.html 
