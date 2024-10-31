@@ -30,3 +30,19 @@ Takeaways:
 To-Do:
 * Step 2 of the program specs, which is:
   * Extend the program to write a wave file called clipped.wav in the current directory. This file will consist of a 1/2-amplitude sine wave (values: -16384 to 16384). Samples that would be greater than 1/4 max amplitude should instead be maxed at 1/4 amplitude (8192), and those less than 1/4 min amplitude should be at -8192. Doing this will create a file where the Reaper (Audacity can suck it!) GUI displays it as a set of sine waves with their heads cut off. 
+
+
+
+
+# Thursday, October 31st, 2024
+
+It's been a while since the last entry in here. The last couple of weeks have been spent trying to understand the concepts presented in the class more comprehensively before trying my hand at coding again. Anyway, I created a program called audio_visualizer.py. This program allows a user to either load a file or generate a tone for a selected musical note. It uses the fft (fast Fourier transform) algorithm to display a visualization of the frequency spectrum of the chosen sound. To do this, I used matplotlib, scipy, and simpleaudio. Because I never worked with matplotlib before, I applied a lot of what I learned from the link: https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html
+
+Here are my program functionalities so far:
+* Audio generation: loads a wav file, converting it to mono if it is not natively stereo
+* frequency spectrum visualization: converts the audio data from the time domain to the frequency domain using fft, focuses on a selected sound's frequency range, with a bandwidth range of +- 5 Hz, and updates the plot in real-time
+* audio playback: plays the selected audio, synchronizing it with the visualizer
+
+To Do:
+* add a main function for the user interface
+* create a function that allows the user to generate a tone from the spectrum of musical notes in the 4th octave 
