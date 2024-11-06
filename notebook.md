@@ -46,3 +46,7 @@ Here are my program functionalities so far:
 To Do:
 * add a main function for the user interface
 * create a function that allows the user to generate a tone from the spectrum of musical notes in the 4th octave 
+
+# Tuesday, November 5th
+
+I decided to remove functionality to load an audio file. It would have been redundant to load in a musical note when I can just use libraries like simpleaudio to play the selected frequency for me. I'm running into a bit of an issue with the matplot not plotting the frequency when I select a note. I think there could be a couple things causing this. I think I should try using plt.draw() to force the plot to update. Although, it could also be an issue of the tone generation happening quicker than the plot can update. To remedy this, I'll alter the program to ensure that the plot remains even after the tone goes away. 

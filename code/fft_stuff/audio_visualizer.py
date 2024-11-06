@@ -1,8 +1,7 @@
-#this program is going to take in an audio file and create a visual representation
-#of the audio file using the fast fourier transform
-#I'm also going to use a dictionary of note frequencies to let the user pick a note to be played and 
-#perform the fft on.
+#this program use a dictionary of note frequencies to let the user pick a note to be played and 
+#perform the fft on, allowing the user to visualize the frequency spectrum around the target note frequency.
 # #to help with this I used the following documentation: https://matplotlib.org/3.5.3/api/_as_gen/matplotlib.pyplot.html
+#                                                        https://stackoverflow.com/questions/25735153/plotting-a-fast-fourier-transform-in-python
 
 import numpy as np
 import matplotlib.pyplot as plt #for plotting the spectrogram
@@ -43,20 +42,6 @@ def filter_fft(fft_data, frequencies, target_freq, bandwidth=5):
     return fft_data[mask], frequencies[mask]
 
 
-
-def load_file(file_path):
-    #loading the audio file
-    if not os.path.isfile(file_path) or not file_path.lower().endswith('.wav'):
-        raise ValueError("Invalid file path. Please provide a valid .wav file.")
-        return None, None
-    
-    sample_rate, audio_data = wav.read(file_path)
-
-    #converting to mono if the audio is native stereo
-    if len(audio_data.shape) > 1:
-        audio_data = audio_data.mean(axis=1) / 2
-
-    return sample_rate, audio_data
 
 
 #function to play the audio and visualize the frequency spectrum  around the target frequency
@@ -104,4 +89,29 @@ def visualize_spectrum(audio_data, sample_rate, target_freq, bandwidth=5):
         plt.show() #show the plot
 
 
+
+def generate_tone(frequency, duration, sample_rate=44100):
+    #generating a sine wave tone using numpy
+    t = np.linspace(0, duration, int(sample_rate * duration), False) #creating array of time values
+    tone = (np.sin(2 * np.pi * frequency * t) * 32767).astype(np.int16) #creating the sine wave tone
+    return sample_rate, tone #returning the sample rate and tone data
+
+
 #main function to handle user interface
+
+def main():
+    print("Welcome to the Audio Visualizer! Select a note to visualize the frequency spectrum around it:" )
+    for i, note in enumerate(note_freqs.keys(), 1):   #listing each note in the dictionary with a corresponding number
+        print(f"{i}. {note}")
+        
+    note_choice = int(input("Enter the number of the note you want to visualize: ")) #prompting the user to enter a number corresponding to a note
+    note = list(note_freqs.keys())[note_choice] #getting the note based on the user's choice
+    target_freq = note_freqs[note] #getting the frequency of the target note
+
+    print(f"Visualizing frequency spectrum around {note} ({target_freq} Hz)")
+    sample_rate, audio_data = generate_tone(target_freq, DURATION) #generating the tone for the target note
+    visualize_spectrum(audio_data, sample_rate, target_freq) #visualizing the frequency spectrum around the target note
+
+
+if __name__ == "__main__":
+    main()  
