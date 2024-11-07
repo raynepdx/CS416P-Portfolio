@@ -28,7 +28,7 @@ note_freqs = {
 }
 
 CHUNK = 1024 #number of samples to read at a time
-DURATION = 2 #duration of the audio playback
+DURATION = 5 #duration of the audio playback
 
 #function to filter the fft data around a specific frequency. bandwidth is the upper and lower bound of the target frequency
 def filter_fft(fft_data, frequencies, target_freq, bandwidth=5):
@@ -47,14 +47,16 @@ def filter_fft(fft_data, frequencies, target_freq, bandwidth=5):
 #function to play the audio and visualize the frequency spectrum  around the target frequency
 def visualize_spectrum(audio_data, sample_rate, target_freq, bandwidth=5):
     #setting up a plot using matplotlib
-    plt.ion() #turning on interactive mode
+    #plt.ion() #turning on interactive mode
     fig, ax = plt.subplots() #creating a figure and axis object
     x = np.linspace(0, sample_rate / 2, CHUNK // 2) #creating the x-axis for the plot
     line, = ax.plot(x, np.zeros(CHUNK // 2)) #creating the line object for the plot
-    ax.set_xlim(target_freq - 10, target_freq + 10) #setting the x-axis limits
-    ax.set_ylim(0, 1) #setting the y-axis limits
+    
+    
     ax.set_xlabel("Frequency (Hz)") #setting the x-axis label
     ax.set_ylabel("Amplitude") #setting the y-axis label
+    ax.set_xlim(target_freq - 10, target_freq + 10) #setting the x-axis limits
+    ax.set_ylim(0, 10000) #setting the y-axis limits
 
     #setting up playback of the audio
     playback = audio.play_buffer(audio_data, 1, 2, sample_rate)
@@ -78,15 +80,19 @@ def visualize_spectrum(audio_data, sample_rate, target_freq, bandwidth=5):
             #updating the plot with the filtered fft data
             line.set_xdata(filtered_freqs)
             line.set_ydata(filtered_fft)
+            plt.draw()
             plt.pause(0.01) #pausing for a short time to allow the plot to update
+
+        
 
     except KeyboardInterrupt: #if the user interrupts the program, stop the audio playback
         playback.stop()
         plt.close() #close the plot
 
-    finally:
-        plt.ioff() #turn off interactive mode
-        plt.show() #show the plot
+    
+    print("press enter to exit")
+    input() #wait for user input before exiting the program
+    plt.close() #close the plot
 
 
 
@@ -105,7 +111,7 @@ def main():
         print(f"{i}. {note}")
         
     note_choice = int(input("Enter the number of the note you want to visualize: ")) #prompting the user to enter a number corresponding to a note
-    note = list(note_freqs.keys())[note_choice] #getting the note based on the user's choice
+    note = list(note_freqs.keys())[note_choice - 1] #getting the note based on the user's choice
     target_freq = note_freqs[note] #getting the frequency of the target note
 
     print(f"Visualizing frequency spectrum around {note} ({target_freq} Hz)")

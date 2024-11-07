@@ -50,3 +50,6 @@ To Do:
 # Tuesday, November 5th
 
 I decided to remove functionality to load an audio file. It would have been redundant to load in a musical note when I can just use libraries like simpleaudio to play the selected frequency for me. I'm running into a bit of an issue with the matplot not plotting the frequency when I select a note. I think there could be a couple things causing this. I think I should try using plt.draw() to force the plot to update. Although, it could also be an issue of the tone generation happening quicker than the plot can update. To remedy this, I'll alter the program to ensure that the plot remains even after the tone goes away. 
+
+# Wednesday, November 6th
+I'm still running into the issues mentioned in my last entry. The sounds are generating correctly, and the plot window is appearing, but nothing appears on the plot, and the window closes automatically as well. I added 'plt.show(block=True)' to the function that generates the plot. No dice. I also added a prompt for user input that allows the user to exit the matplotlib window by pressing enter. Still no dice. I'll sift through the matplotlib documentation again tomorrow to see if I'm missing something. With that said, I've spent more time than I like on this program and want to start working on a program that adds various effects to a note.
