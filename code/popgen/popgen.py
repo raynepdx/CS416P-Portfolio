@@ -220,7 +220,7 @@ for c in chord_loop:
     melody = np.concatenate(list(make_note(i + melody_root, wave_type="sine") for i in notes)) #change the wave type in the argument "wave_type"
 
     bass_note = note_to_key_offset(c - 1)
-    bass = make_note(bass_note + bass_root, n=4, wave_type="square") #change the wave type in the argument "wave_type"
+    bass = make_note(bass_note + bass_root, n=4, wave_type="sine") #change the wave type in the argument "wave_type"
 
     melody_gain = args.balance
     bass_gain = 1 - melody_gain

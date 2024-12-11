@@ -64,3 +64,6 @@ I started on the adaptive tone control program that Bart recommended. I thought 
   * definitely a wav file, but maybe figure out how to input an mp3?
   * output the audio from the file to speakers
 * I'm thinking of using tkinter again to add a GUI for the program. Maybe let the user adjust the band weighting manually
+
+# Tuesday, December 10th
+I copied the popgen file from the class Github page and decided to focus on creating an envelope and creating functionality for choosing between different waveforms. I did this by taking the attack, release, and sustain and making them linear with np.linspace(args). The envelope function then returns each of the linear envelopes as a concatenation. I then altered the make_note function by creating the variable env and setting it to the returned result of the envelope function, and then made the make_note function return waveform * env. In addition, I altered the parameters of make_waveform to take in the type. This can be altered on like 220 for melody and 223 for bass. I made an if-elif-else statement that evaluates the type passed into the function and returns a different type of waveform (sine, square, sawtooth, and triangle).
